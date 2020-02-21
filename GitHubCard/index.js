@@ -16,6 +16,9 @@
            create a new component and add it to the DOM as a child of .cards
 */
 
+
+
+
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -26,7 +29,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the 
@@ -49,140 +52,76 @@ const followersArray = [];
 
 */
 
-axios.get("https://api.github.com/users/AvanteGov")
-  .then((response) => {
-      const cardConstructor = (objectParam) => {
 
-        // creates parent container
-        let container = document.createElement('div');
+  
+  let parentContainer = document.querySelector('.cards');
+  
+  const cardConstructor = (objectParam) => {
+
+    // creates parent container and adding the class 
+    let container = document.createElement('div');
+    container.classList.add('card');
+
+    // creates img and adds attribute then appends to parent container 
+    let img = document.createElement('img');
+    img.src = objectParam.avatar_url;
+    container.appendChild(img);
+
+    // creates card container and adds class
+    let infoContainer = document.createElement('div');
+    infoContainer.classList.add('card-info');
+    container.appendChild(infoContainer);
+
+    // creates card container elements and modifies and then appending to infocontainer
+    let username = document.createElement('h3');
+    username.textContent = objectParam.login;
+    username.classList.add("username");
+    infoContainer.appendChild(username);
     
-        // creates img and adds attribute then appends
-        let img = document.createElement('img');
-        img.src = objectParam.avatar_url;
-        container.appendChild(img);
+    // creating the profile header and the modiying, and adding class, and appendign tpo info container
+    let name = document.createElement('p');
+    name.textContent = objectParam.name;
+    name.classList.add('name');
+    infoContainer.appendChild(name);
     
-        // creates card container and adds class
-        let infoContainer = document.createElement('div');
-        infoContainer.classList.add('card-info');
     
-        // creates card container elements and modifies
-        let username = document.createElement('h3');
-        username.textContent = objectParam.login
-    
-        let name = document.createElement('p');
-        name.textContent = objectParam.name;
-    
-        let location = document.createElement('p');
-        location.textContent = `Location: ${objectParam.location}`;
-    
-        // creates paragraph for user profile and link
-        let profile = document.createElement('p');
-        profile.textContent = "Profile: ";
-        let profileLink = document.createElement('a');
-        profileLink.href = objectParam.url;
-        profile.textContent = "AvanteGov";
-    
-        // appends the link to the profile 
-        profile.appendChild(profileLink);
-    
-        // creates follwers paragraph and interpolates 
-        let followers = document.createElement('p');
-        followers.textContent = `Followers: ${objectParam.followers}`;
-    
-        // creates following and interpolates 
-        let following = document.createElement('p');
-        following.textContent = `Following: ${objectParam.following}`;
-    
-        let bio = document.createElement('p');
-        bio.textContent = `Bio: ${objectParam.bio}`
-    
-        // appends image to the parent container 
-        container.appendChild(img);
-    
-        // appends all grandchildren to the child container 
-        infoContainer.appendChild(username);
-        infoContainer.appendChild(name);
-        infoContainer.appendChild(location);
-        infoContainer.appendChild(profile);
-        infoContainer.appendChild(followers);
-        infoContainer.appendChild(following);
-        infoContainer.appendChild(bio);
-    
-        return container;
-      }
+    let location = document.createElement('p');
+    location.textContent = `Location: ${objectParam.location}`;
+    infoContainer.appendChild(location);
 
-      let newContainer = cardConstructor(response);
-      
+    // creates paragraph for user profile and link
+    let profile = document.createElement('p');
+    profile.textContent = "Profile: ";
+    let profileLink = document.createElement('a');
+    profileLink.href = objectParam.url;
+    profile.textContent = "AvanteGov";
 
-    })
-  .catch((err) => { console.log("big error") })
+    // appends the link to the profile 
+    profile.appendChild(profileLink);
+    infoContainer.appendChild(profile);
 
-  // const cardConstructor = (objectParam) => {
+    // creates follwers paragraph and interpolates 
+    let followers = document.createElement('p');
+    followers.textContent = `Followers: ${objectParam.followers}`;
+    infoContainer.appendChild(followers);
 
-  //   // creates parent container
-  //   let container = document.createElement('div');
+    // creates following and interpolates 
+    let following = document.createElement('p');
+    following.textContent = `Following: ${objectParam.following}`;
+    infoContainer.appendChild(following);
 
-  //   // creates img and adds attribute then appends
-  //   let img = document.createElement('img');
-  //   img.src = objectParam.avatar_url;
-  //   container.appendChild(img);
+    let bio = document.createElement('p');
+    bio.textContent = `Bio: ${objectParam.bio}`;
+    infoContainer.appendChild(bio);
 
-  //   // creates card container and adds class
-  //   let infoContainer = document.createElement('div');
-  //   infoContainer.classList.add('card-info');
+    return container;
+  }
 
-  //   // creates card container elements and modifies
-  //   let username = document.createElement('h3');
-  //   username.textContent = objectParam.login
-
-  //   let name = document.createElement('p');
-  //   name.textContent = objectParam.name;
-
-  //   let location = document.createElement('p');
-  //   location.textContent = `Location: ${objectParam.location}`;
-
-  //   // creates paragraph for user profile and link
-  //   let profile = document.createElement('p');
-  //   profile.textContent = "Profile: ";
-  //   let profileLink = document.createElement('a');
-  //   profileLink.href = objectParam.url;
-  //   profile.textContent = "AvanteGov";
-
-  //   // appends the link to the profile 
-  //   profile.appendChild(profileLink);
-
-  //   // creates follwers paragraph and interpolates 
-  //   let followers = document.createElement('p');
-  //   followers.textContent = `Followers: ${objectParam.followers}`;
-
-  //   // creates following and interpolates 
-  //   let following = document.createElement('p');
-  //   following.textContent = `Following: ${objectParam.following}`;
-
-  //   let bio = document.createElement('p');
-  //   bio.textContent = `Bio: ${objectParam.bio}`
-
-  //   // appends image to the parent container 
-  //   container.appendChild(img);
-
-  //   // appends all grandchildren to the child container 
-  //   infoContainer.appendChild(username);
-  //   infoContainer.appendChild(name);
-  //   infoContainer.appendChild(location);
-  //   infoContainer.appendChild(profile);
-  //   infoContainer.appendChild(followers);
-  //   infoContainer.appendChild(following);
-  //   infoContainer.appendChild(bio);
-
-  //   return container;
-  // }
-
-
-
-
-
-
-
+axios.get("https://api.github.com/users/avantegov")
+.then((response) => {
+  parentContainer.appendChild(cardConstructor(response.data));
+  })
+.catch((err) => { console.log("big error") })
 
 /* List of LS Instructors Github username's: 
   tetondan
@@ -191,3 +130,32 @@ axios.get("https://api.github.com/users/AvanteGov")
   luishrd
   bigknell
 */
+
+const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+
+// for (i = 0; i < followersArray.length; i++) {
+//   axios.get(`https://api.github.com/users/${followersArray[i]}`)
+//   console.log(`https://api.github.com/users/${followersArray[i]}`)
+//     .then((response) => {
+//       parentContainer.appendChild(cardConstructor(response.data));
+//     })
+//     .catch((err) => {console.log("you got big error there, Tex.")})
+// }
+
+followersArray.forEach((user) => {
+  axios.get(`https://api.github.com/users/${user}`)
+    .then((response) =>{
+      parentContainer.appendChild(cardConstructor(response.data));
+    })
+    .catch((err) => {console.log("You got a big error there, Tex")})
+})
+
+let avanteFollowers = [];
+
+axios.get("https://api.github.com/users/avantegov/followers")
+  .then((response) => {
+    response.forEach((follower) => {
+      parentContainer.appendChild(cardConstructor(follower.data));
+    })
+  })
+  .catch((err) => {console.log("you got the biggest error yet.")});
