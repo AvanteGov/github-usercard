@@ -72,19 +72,19 @@
     infoContainer.classList.add('card-info');
     container.appendChild(infoContainer);
 
-    // creates card container elements and modifies and then appending to infocontainer
+    // creates username paragraph, modifies content, adds class, appends to child container
     let username = document.createElement('h3');
     username.textContent = objectParam.login;
     username.classList.add("username");
     infoContainer.appendChild(username);
     
-    // creating the profile header and the modiying, and adding class, and appendign tpo info container
+    // creating the profile header and the modiying, and adding class, and appending to info container
     let name = document.createElement('p');
     name.textContent = objectParam.name;
     name.classList.add('name');
     infoContainer.appendChild(name);
     
-    
+    // creates location paragraph, modifies content, appends to info container. 
     let location = document.createElement('p');
     location.textContent = `Location: ${objectParam.location}`;
     infoContainer.appendChild(location);
@@ -93,7 +93,7 @@
     let profile = document.createElement('p');
     profile.textContent = "Profile: ";
     let profileLink = document.createElement('a');
-    profileLink.href = objectParam.url;
+    profileLink.href = objectParam.html_url;
     profile.textContent = "AvanteGov";
 
     // appends the link to the profile 
